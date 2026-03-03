@@ -1,0 +1,26 @@
+using Documenter, DocumenterVitepress
+
+makedocs(;
+    modules = Module[],
+    authors = "JuliaGeo Contributors",
+    repo = "https://github.com/JuliaGeo/juliageo.github.io",
+    sitename = "JuliaGeo",
+    format = DocumenterVitepress.MarkdownVitepress(
+        repo = "https://github.com/JuliaGeo/juliageo.github.io",
+        devbranch = "master",
+        devurl = "dev",
+        deploy_url = "juliageo.org",
+        build_vitepress = false,
+    ),
+    pages = [
+        "Home" => "index.md",
+        "Ecosystem" => "ecosystem.md",
+    ],
+    warnonly = true,
+)
+
+deploydocs(;
+    repo = "github.com/JuliaGeo/juliageo.github.io",
+    devbranch = "master",
+    push_preview = true,
+)
