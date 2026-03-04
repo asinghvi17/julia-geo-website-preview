@@ -14,7 +14,6 @@ makedocs(;
     ),
     pages = [
         "Home" => "index.md",
-        "Ecosystem" => "ecosystem.md",
     ],
     warnonly = true,
 )

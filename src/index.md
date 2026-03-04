@@ -54,164 +54,64 @@ features:
 ```
 
 ```@raw html
+<script setup>
+const tags = [
+  "raster", "vector", "io", "analysis", "visualization",
+  "datasets", "native-julia", "c-bindings", "makie",
+  "projections", "interop", "netcdf", "point-cloud", "formats",
+]
+
+const packages = [
+  // Core
+  { name: "Rasters.jl", description: "Read, write, and manipulate rasterized spatial data - satellite imagery, climate model outputs, and elevation grids", link: "https://rafaqz.github.io/Rasters.jl/dev/", category: "Core", tags: ["raster", "io", "analysis"] },
+  { name: "GeometryOps.jl", description: "Fast geometric operations for vector data, designed to work with any GeoInterface.jl compatible geometry", link: "https://juliageo.org/GeometryOps.jl/dev/", category: "Core", tags: ["vector", "analysis", "native-julia"] },
+  { name: "GeoDataFrames.jl", description: "Integrate geometric operations directly within DataFrame structures for seamless tabular geospatial workflows", link: "https://www.evetion.nl/GeoDataFrames.jl/dev/", category: "Core", tags: ["vector", "io", "analysis"] },
+
+  // Foundation
+  { name: "GeoInterface.jl", description: "Traits and protocols for geospatial data based on the Simple Features standard", link: "https://juliageo.org/GeoInterface.jl/dev/", category: "Foundation", tags: ["interop", "vector", "formats"] },
+  { name: "GeoFormatTypes.jl", description: "Wrapper types for passing and dispatching on geographic formats like WKT and GeoJSON", link: "https://github.com/JuliaGeo/GeoFormatTypes.jl", category: "Foundation", tags: ["interop", "formats"] },
+  { name: "CommonDataModel.jl", description: "Common data model for NetCDF, GRIB, Zarr, and GeoTIFF datasets", link: "https://github.com/JuliaGeo/CommonDataModel.jl", category: "Foundation", tags: ["interop", "raster", "netcdf"] },
+  { name: "Geodesy.jl", description: "Coordinate systems (LLA, ECEF, ENU) and geodetic calculations", link: "https://github.com/JuliaGeo/Geodesy.jl", category: "Foundation", tags: ["projections", "interop"] },
+  { name: "SortTileRecursiveTree.jl", description: "STR-tree spatial index for GeoInterface geometries", link: "https://github.com/asinghvi17/SortTileRecursiveTree.jl", category: "Foundation", tags: ["vector", "interop"] },
+
+  // Visualization
+  { name: "Tyler.jl", description: "Interactive tiled web maps with Makie", link: "https://github.com/MakieOrg/Tyler.jl", category: "Visualization", tags: ["visualization", "makie", "datasets"] },
+  { name: "GeoMakie.jl", description: "Geographic projections, coastlines, and map plotting with Makie", link: "https://github.com/MakieOrg/GeoMakie.jl", category: "Visualization", tags: ["visualization", "makie", "projections"] },
+
+  // File I/O
+  { name: "NCDatasets.jl", description: "NetCDF files - climate, oceanographic, and scientific data", link: "https://github.com/JuliaGeo/NCDatasets.jl", category: "File I/O", tags: ["io", "native-julia", "netcdf", "raster"] },
+  { name: "GeoJSON.jl", description: "Read, write, and manipulate GeoJSON data", link: "https://github.com/JuliaGeo/GeoJSON.jl", category: "File I/O", tags: ["io", "native-julia", "vector", "formats"] },
+  { name: "Shapefile.jl", description: "Read and write ESRI Shapefiles", link: "https://github.com/JuliaGeo/Shapefile.jl", category: "File I/O", tags: ["io", "native-julia", "vector", "formats"] },
+  { name: "GeoParquet.jl", description: "Geospatial data in Parquet columnar format", link: "https://github.com/JuliaGeo/GeoParquet.jl", category: "File I/O", tags: ["io", "native-julia", "vector", "formats"] },
+  { name: "LazIO.jl", description: "Read and write LAZ/LAS point cloud files", link: "https://github.com/evetion/LazIO.jl", category: "File I/O", tags: ["io", "native-julia", "point-cloud"] },
+  { name: "STAC.jl", description: "SpatioTemporal Asset Catalogs client", link: "https://github.com/JuliaClimate/STAC.jl", category: "File I/O", tags: ["io", "native-julia", "datasets", "raster"] },
+  { name: "FlatGeobuf.jl", description: "Native FlatGeobuf format support", link: "https://github.com/evetion/FlatGeobuf.jl", category: "File I/O", tags: ["io", "native-julia", "vector", "formats"] },
+
+  // C Library Wrappers
+  { name: "ArchGDAL.jl", description: "High-level Julia interface to the GDAL library for raster and vector data", link: "https://yeesian.com/ArchGDAL.jl", category: "C Library Wrappers", tags: ["io", "c-bindings", "raster", "vector"] },
+  { name: "GDAL.jl", description: "Julia bindings for the GDAL library", link: "https://github.com/JuliaGeo/GDAL.jl", category: "C Library Wrappers", tags: ["io", "c-bindings", "raster", "vector"] },
+  { name: "LibGEOS.jl", description: "Julia interface to the GEOS geometry engine for spatial predicates and operations", link: "https://github.com/JuliaGeo/LibGEOS.jl", category: "C Library Wrappers", tags: ["c-bindings", "vector", "analysis"] },
+  { name: "Proj.jl", description: "Julia interface to PROJ for coordinate transformations and cartographic projections", link: "https://github.com/JuliaGeo/Proj.jl", category: "C Library Wrappers", tags: ["c-bindings", "projections"] },
+
+  // Datasets
+  { name: "MapTiles.jl", description: "Tiled web map utilities and tile coordinates", link: "https://github.com/JuliaGeo/MapTiles.jl", category: "Datasets", tags: ["datasets", "visualization"] },
+  { name: "GADM.jl", description: "Global administrative area boundaries", link: "https://github.com/JuliaGeo/GADM.jl", category: "Datasets", tags: ["datasets", "vector"] },
+  { name: "NaturalEarth.jl", description: "Natural Earth vector and raster map data", link: "https://github.com/JuliaGeo/NaturalEarth.jl", category: "Datasets", tags: ["datasets", "vector", "raster"] },
+  { name: "GeoDatasets.jl", description: "Access to common geographic reference datasets", link: "https://github.com/JuliaGeo/GeoDatasets.jl", category: "Datasets", tags: ["datasets"] },
+  { name: "SpaceLiDAR.jl", description: "Satellite altimetry data - ICESat, ICESat-2, GEDI", link: "https://github.com/evetion/SpaceLiDAR.jl", category: "Datasets", tags: ["datasets", "point-cloud", "raster"] },
+
+  // Analysis
+  { name: "Geomorphometry.jl", description: "Terrain operations, cost analysis, and filtering for elevation rasters", link: "https://deltares.github.io/Geomorphometry.jl/v0.7.0/", category: "Analysis", tags: ["analysis", "raster"] },
+]
+</script>
+```
+
+```@raw html
 <section class="geo-ecosystem">
   <div class="geo-ecosystem-header">
     <h2>The Ecosystem</h2>
     <p>Packages spanning the full geospatial stack — from coordinate systems and file formats to spatial analysis and visualization.</p>
   </div>
-
-  <div class="geo-category">
-    <div class="geo-category-head">
-      <h3>Foundation</h3>
-      <p>Core packages that enable interoperability across the entire ecosystem</p>
-    </div>
-    <div class="geo-pkg-grid">
-      <a href="https://juliageo.org/GeoInterface.jl/dev/" class="geo-pkg">
-        <strong>GeoInterface.jl</strong>
-        <span>Traits and protocols for geospatial data based on the Simple Features standard</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/GeoFormatTypes.jl" class="geo-pkg">
-        <strong>GeoFormatTypes.jl</strong>
-        <span>Wrapper types for passing and dispatching on geographic formats like WKT and GeoJSON</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/CommonDataModel.jl" class="geo-pkg">
-        <strong>CommonDataModel.jl</strong>
-        <span>Common data model for NetCDF, GRIB, Zarr, and GeoTIFF datasets</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="geo-category">
-    <div class="geo-category-head">
-      <h3>Visualization</h3>
-      <p>Map rendering, tiled maps, and geographic plotting</p>
-    </div>
-    <p class="geo-note">
-      See <a href="https://docs.makie.org/stable/">Makie</a> and <a href="https://docs.juliaplots.org/stable/">Plots.jl</a> for general-purpose plotting in Julia.
-    </p>
-    <div class="geo-pkg-grid">
-      <a href="https://github.com/MakieOrg/Tyler.jl" class="geo-pkg">
-        <strong>Tyler.jl</strong>
-        <span>Interactive tiled web maps with Makie</span>
-      </a>
-      <a href="https://github.com/MakieOrg/GeoMakie.jl" class="geo-pkg">
-        <strong>GeoMakie.jl</strong>
-        <span>Geographic projections, coastlines, and map plotting with Makie</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="geo-category">
-    <div class="geo-category-head">
-      <h3>File I/O — Native Julia</h3>
-      <p>Pure Julia implementations for reading and writing geospatial formats</p>
-    </div>
-    <div class="geo-pkg-grid">
-      <a href="https://github.com/JuliaGeo/NCDatasets.jl" class="geo-pkg">
-        <strong>NCDatasets.jl</strong>
-        <span>NetCDF files — climate, oceanographic, and scientific data</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/GeoJSON.jl" class="geo-pkg">
-        <strong>GeoJSON.jl</strong>
-        <span>Read, write, and manipulate GeoJSON data</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/Shapefile.jl" class="geo-pkg">
-        <strong>Shapefile.jl</strong>
-        <span>Read and write ESRI Shapefiles</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/GeoParquet.jl" class="geo-pkg">
-        <strong>GeoParquet.jl</strong>
-        <span>Geospatial data in Parquet columnar format</span>
-      </a>
-      <a href="https://github.com/evetion/LazIO.jl" class="geo-pkg">
-        <strong>LazIO.jl</strong>
-        <span>Read and write LAZ/LAS point cloud files</span>
-      </a>
-      <a href="https://github.com/JuliaClimate/STAC.jl" class="geo-pkg">
-        <strong>STAC.jl</strong>
-        <span>SpatioTemporal Asset Catalogs client</span>
-      </a>
-      <a href="https://github.com/evetion/FlatGeobuf.jl" class="geo-pkg">
-        <strong>FlatGeobuf.jl</strong>
-        <span>Native FlatGeobuf format support</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="geo-category">
-    <div class="geo-category-head">
-      <h3>File I/O — C Bindings</h3>
-      <p>Julia wrappers around battle-tested C geospatial libraries</p>
-    </div>
-    <div class="geo-pkg-grid">
-      <a href="https://yeesian.com/ArchGDAL.jl" class="geo-pkg">
-        <strong>ArchGDAL.jl</strong>
-        <span>High-level GDAL interface for raster and vector data</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/GDAL.jl" class="geo-pkg">
-        <strong>GDAL.jl</strong>
-        <span>Low-level wrapper for the GDAL library</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/LibGEOS.jl" class="geo-pkg">
-        <strong>LibGEOS.jl</strong>
-        <span>GEOS geometry engine — spatial predicates and operations</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/Proj.jl" class="geo-pkg">
-        <strong>Proj.jl</strong>
-        <span>Coordinate transformations and cartographic projections via PROJ</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="geo-category">
-    <div class="geo-category-head">
-      <h3>Datasets</h3>
-      <p>Access geographic datasets and tiled map services</p>
-    </div>
-    <div class="geo-pkg-grid">
-      <a href="https://github.com/JuliaGeo/MapTiles.jl" class="geo-pkg">
-        <strong>MapTiles.jl</strong>
-        <span>Tiled web map utilities and tile coordinates</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/GADM.jl" class="geo-pkg">
-        <strong>GADM.jl</strong>
-        <span>Global administrative area boundaries</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/NaturalEarth.jl" class="geo-pkg">
-        <strong>NaturalEarth.jl</strong>
-        <span>Natural Earth vector and raster map data</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/GeoDatasets.jl" class="geo-pkg">
-        <strong>GeoDatasets.jl</strong>
-        <span>Access to common geographic reference datasets</span>
-      </a>
-      <a href="https://github.com/evetion/SpaceLiDAR.jl" class="geo-pkg">
-        <strong>SpaceLiDAR.jl</strong>
-        <span>Satellite altimetry data — ICESat, ICESat-2, GEDI</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="geo-category">
-    <div class="geo-category-head">
-      <h3>Spatial Analysis</h3>
-      <p>Geodetic calculations, terrain analysis, and spatial indexing</p>
-    </div>
-    <div class="geo-pkg-grid">
-      <a href="https://deltares.github.io/Geomorphometry.jl/v0.7.0/" class="geo-pkg">
-        <strong>Geomorphometry.jl</strong>
-        <span>Terrain operations, cost analysis, and filtering for elevation rasters</span>
-      </a>
-      <a href="https://github.com/JuliaGeo/Geodesy.jl" class="geo-pkg">
-        <strong>Geodesy.jl</strong>
-        <span>Coordinate systems (LLA, ECEF, ENU) and geodetic calculations</span>
-      </a>
-      <a href="https://github.com/asinghvi17/SortTileRecursiveTree.jl" class="geo-pkg">
-        <strong>SortTileRecursiveTree.jl</strong>
-        <span>STR-tree spatial index for GeoInterface geometries</span>
-      </a>
-    </div>
-  </div>
-
+  <PackageExplorer :packages="packages" :tags="tags" />
 </section>
 ```
