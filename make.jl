@@ -14,6 +14,11 @@ makedocs(;
     ),
     pages = [
         "Home" => "index.md",
+        "About" => [
+            "Who We Are" => "about/who-we-are.md",
+            "Governance" => "about/governance.md",
+            "Code of Conduct" => "about/code-of-conduct.md",
+        ],
     ],
     warnonly = true,
 )
