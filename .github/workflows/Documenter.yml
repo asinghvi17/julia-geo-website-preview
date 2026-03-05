@@ -29,10 +29,29 @@ jobs:
       - name: Load Julia packages from cache
         id: julia-cache
         uses: julia-actions/cache@v2
-      - name: Build and deploy docs
-        uses: julia-actions/julia-docdeploy@v1
-        with:
-          install-package: false
+      - name: Install GitHubActions.jl in its own (shared) environment
+        run: |
+          using Pkg
+          Pkg.activate("docs-logger-env"; shared=true)
+          Pkg.add(Pkg.PackageSpec(name="GitHubActions", version="0.1"))
+        shell: julia --color=yes {0}
+
+      - name: Build the documentation
+        run: |
+          # The Julia command that will be executed
+          julia_cmd=( julia -i --color=yes --project=. -e '
+              using REPL # to avoid bug with DataREPL module in DataSets.jl, remove once that is taken care of
+              @eval Module() begin
+                  push!(LOAD_PATH, "@docs-logger-env") # access GitHubActions.jl
+                  import Logging, GitHubActions
+                  Logging.global_logger(GitHubActions.GitHubActionsLogger())
+                  pop!(LOAD_PATH)
+              end
+              include("make.jl")' )
+
+          # Run the Julia command
+          echo 'exit(0)' | "${julia_cmd[@]}"
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
