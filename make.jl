@@ -23,7 +23,7 @@ makedocs(;
     warnonly = true,
 )
 
-deploydocs(;
+DocumenterVitepress.deploydocs(;
     repo = "github.com/asinghvi17/julia-geo-website-preview",
     devbranch = "master",
     push_preview = true,
