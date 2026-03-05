@@ -9,8 +9,7 @@ makedocs(;
         repo = "https://github.com/asinghvi17/julia-geo-website-preview",
         devbranch = "master",
         devurl = "dev",
-        deploy_url = "juliageo.org",
-        build_vitepress = false,
+        build_vitepress = haskey(ENV, "CI"),
     ),
     pages = [
         "Home" => "index.md",
