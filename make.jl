@@ -3,10 +3,10 @@ using Documenter, DocumenterVitepress
 makedocs(;
     modules = Module[],
     authors = "JuliaGeo Contributors",
-    repo = "https://github.com/JuliaGeo/juliageo.github.io",
+    repo = "https://github.com/asinghvi17/julia-geo-website-preview",
     sitename = "JuliaGeo",
     format = DocumenterVitepress.MarkdownVitepress(
-        repo = "https://github.com/JuliaGeo/juliageo.github.io",
+        repo = "https://github.com/asinghvi17/julia-geo-website-preview",
         devbranch = "master",
         devurl = "dev",
         deploy_url = "juliageo.org",
