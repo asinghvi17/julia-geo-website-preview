@@ -3,13 +3,13 @@ using Documenter, DocumenterVitepress
 makedocs(;
     modules = Module[],
     authors = "JuliaGeo Contributors",
-    repo = "https://github.com/JuliaGeo/juliageo.github.io",
+    repo = "https://github.com/asinghvi17/julia-geo-website-preview",
     sitename = "JuliaGeo",
     format = DocumenterVitepress.MarkdownVitepress(
-        repo = "https://github.com/JuliaGeo/juliageo.github.io",
-        devbranch = "master",
+        repo = "https://github.com/asinghvi17/julia-geo-website-preview",
+        devbranch = "as/new-website",
         devurl = "dev",
-        deploy_url = "juliageo.org",
+        # deploy_url = "juliageo.org",
         build_vitepress = false,
     ),
     pages = [
@@ -24,7 +24,7 @@ makedocs(;
 )
 
 deploydocs(;
-    repo = "github.com/JuliaGeo/juliageo.github.io",
-    devbranch = "master",
+    repo = "github.com/asinghvi17/julia-geo-website-preview",
+    devbranch = "as/new-website",
     push_preview = true,
 )
