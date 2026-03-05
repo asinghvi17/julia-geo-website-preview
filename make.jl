@@ -24,7 +24,7 @@ makedocs(;
 )
 
 deploydocs(;
-    repo = "github.com/JuliaGeo/juliageo.github.io",
+    repo = "github.com/asinghvi17/julia-geo-website-preview",
     devbranch = "master",
     push_preview = true,
 )
