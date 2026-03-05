@@ -31,6 +31,8 @@ jobs:
         uses: julia-actions/cache@v2
       - name: Build and deploy docs
         uses: julia-actions/julia-docdeploy@v1
+        with:
+          install-package: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
