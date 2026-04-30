@@ -7,7 +7,7 @@ hero:
   text: "Geospatial Data Science in Julia"
   tagline: Read, analyze, and visualize geographic data with Julia's composable, high-performance ecosystem.
   image:
-    src: /juliageo.svg
+    src: /logo.svg
     alt: JuliaGeo Logo
   actions:
     - theme: brand
