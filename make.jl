@@ -10,6 +10,7 @@ makedocs(;
         devbranch = "master",
         devurl = "dev",
         build_vitepress = haskey(ENV, "CI"),
+        inventory_version = "1.0.0",
     ),
     pages = [
         "Home" => "index.md",
@@ -21,9 +22,6 @@ makedocs(;
     ],
     warnonly = true,
 )
-
-# Copy hero image to VitePress public dir so it's available as a static asset
-cp(joinpath(@__DIR__, "src", "juliageo.svg"), joinpath(@__DIR__, "build", ".documenter", "public", "juliageo.svg"); force=true)
 
 DocumenterVitepress.deploydocs(;
     repo = "github.com/asinghvi17/julia-geo-website-preview",
